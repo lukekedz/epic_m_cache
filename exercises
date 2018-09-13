@@ -1,0 +1,33 @@
+Exercise 1: ZIP Code Validation
+  1. Read a one-line address into a single variable.
+  2. Check that it ends with a five-digit ZIP Code. 
+  3. Don't worry about the structure of any other part of the address.
+
+  => r !,"Enter a one-line address:",address
+  => s isZipValid=0
+  => s potentialValidZip=$E(address, $L(address) - 4, $L(address))
+  => i $L(potentialValidZip)=5,+potentialValidZip'=0 s isZipValid=1
+  => w isZipValid
+
+
+Exercise 2: String Replacement
+  1. There's a problem in the ^XA global you created during preparation: Mozart wasn't a Baroque composer. To fix this, change every occurrence of the word MOZART in ^XA to the word BACH.
+    a. Only one line of the global will fit in local memory at once.
+    b. Your code should be flexible enough that it would not need to be changed if additional subscripts were added to the global.
+    c. If another programmer wanted to replace a word other than MOZART, he or she should only have to make that change at one point in the code. The same is true for BACH.
+
+    => r "What word would you like to remove? ",wordToRemove
+    => w "What word would you like to insert in place of '" w wordToRemove r "'? ",wordToInsert
+    => s line=""
+    => f  s line=$O(^XA(line)) q:line=""  i $L(^XA(line),wordToRemove)>1 f ctr=2:1:$L(^XA(line),wordToRemove) SET $E(^XA(line),$F(^XA(line),wordToRemove)-$L(wordToRemove),$F(^XA(line),wordToRemove)-1)=wordToInsert
+
+
+Exercise 3: Character Counting
+  1. In your ^XA global, count the number of occurrences of each character, i.e., how many times each letter, number, and punctuation character is used.
+  2. Print out your results ("A: 8, B: 5 ...")
+  3. You can assume control characters won't be entered.
+
+  =>
+
+
+

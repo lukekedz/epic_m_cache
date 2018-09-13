@@ -1,0 +1,36 @@
+docker pull daimor/intersystems-ensemble:2017.2
+
+docker run \
+ -d \
+ -p 57772:57772 \
+ -p 1972:1972 \
+ -v ~/Desktop/learning/epic/docker/data/cachetemp:/usr/cachesys/mgr/cachetemp \
+ --name ensemble daimor/intersystems-ensemble:2017.2
+
+docker exec -it ensemble bash
+
+csession ensemble
+
+
+copy & paste:
+s ^XA(-1)="SYLVESTER STALLONE, BRUCE WILLIS, AND ARNOLD SCHWARZENEGGER WERE DISCUSSING THEIR"
+
+s ^XA(2)="NEXT PROJECT, A BUDDY FILM IN WHICH BAROQUE COMPOSERS TEAM UP TO BATTLE BOX-OFFICE IRRELEVANCE."
+
+s ^XA(10)="EVERYTHING HAD BEEN SETTLED EXCEPT THE CASTING."
+
+s ^XA(45)="""ARNOLD CAN BE PACHELBEL,"" SAID STALLONE. ""AND I WANT TO PLAY MOZART."""
+
+s ^XA("@")="""NO WAY!"" SAID WILLIS. ""YOU'RE NOT REMOTELY MOZARTISH. I'LL PLAY MOZART. YOU CAN BE HANDEL."""
+
+s ^XA("A")="""YOU BE HANDEL!"" YELLED STALLONE. ""I'M PLAYING MOZART!"""
+
+s ^XA("AB")="FINALLY, ARNOLD SPOKE. ""YOU WILL PLAY HANDEL,"" HE SAID TO WILLIS."
+
+s ^XA("B")="""AND YOU,"" HE SAID TO STALLONE, ""WILL PLAY PACHELBEL."""
+
+s ^XA("THEN THIS LINE")="""OH YEAH?"" SAID STALLONE. ""THEN WHO ARE YOU GONNA PLAY?"""
+
+s ^XA("and this one")="ARNOLD ROSE FROM THE TABLE AND DONNED A PAIR OF SUNGLASSES."
+
+s ^XA("so finally")="""I'LL BE MOZART."""

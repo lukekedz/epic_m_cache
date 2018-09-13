@@ -1,0 +1,7 @@
+// loop over array and display values
+  => s line=""
+  => f  s line=$O(^XA(line)) q:line=""  w !,^XA(line)," "
+    
+// loop over array and show count of "Mozart" strings (NOTE: 1 means zero "Mozart" strings, 2 means 1, etc.)
+  => s line=""
+  => f  s line=$O(^XA(line)) q:line=""  w !,$L(^XA(line),"MOZART")," " w !
