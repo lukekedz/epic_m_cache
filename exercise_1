@@ -1,0 +1,5 @@
+=> r !,"Enter a one-line address:",address
+=> s isZipValid=0
+=> s potentialValidZip=$E(address, $L(address) - 4, $L(address))
+=> i $L(potentialValidZip)=5,+potentialValidZip'=0 s isZipValid=1
+=> w isZipValid 

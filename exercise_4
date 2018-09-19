@@ -1,0 +1,50 @@
+myRoutine() ;
+    k ^XLKNames
+    s i=0
+    s arrayLength=0
+    ;
+    d requestNames(i)
+    d sortNames()
+    ;
+    s name=""
+    f  s name=$O(^XLKNames(name)) q:name=""  w !,^XLKNames(name)," "
+    q
+requestNames(i) ;
+    s unvalidatedName=""
+    s validNameBoolean=""
+    ;
+    w ! r "Enter name in format like: LASTNAME,FIRSTNAME INITIAL(S) => ",unvalidatedName
+    d validateInputName(unvalidatedName)
+    i validNameBoolean=1 d  ;
+    . s ^XLKNames(i)=$$up(unvalidatedName)
+    . s i=i+1
+    . d incrementArrayLengthCount()
+    . d requestNames(i)
+    e  i unvalidatedName'="" w !,"Please enter name in proper format, as shown!" d requestNames(i)
+    ;
+    s lengthOfNameArray=i
+    ;
+    q
+sortNames() ;
+    s temp1stName=""
+    s temp2ndName=""
+    ;
+    f ctr=0:1:(arrayLength-1) d  ;
+    . i ^XLKNames(ctr+1)'="" d  ;
+    . . s temp1stName=^XLKNames(ctr)
+    . . s temp2ndName=^XLKNames(ctr+1)
+    . . i ^XLKNames(ctr)]^XLKNames(ctr+1) d  ;
+    . . . s ^XLKNames(ctr)=temp2ndName
+    . . . s ^XLKNames(ctr+1)=temp1stName
+    . . . d sortNames()
+    ;
+    q
+incrementArrayLengthCount() ;
+    s arrayLength=arrayLength+1
+    q
+validateInputName(str) ;
+    s validNameBoolean=str?.A1",".A1" ".A
+    ;
+    q
+    ;
+    q  ;;#eor#

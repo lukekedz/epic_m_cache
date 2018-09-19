@@ -3,31 +3,31 @@ Exercise 1: ZIP Code Validation
   2. Check that it ends with a five-digit ZIP Code. 
   3. Don't worry about the structure of any other part of the address.
 
-  => r !,"Enter a one-line address:",address
-  => s isZipValid=0
-  => s potentialValidZip=$E(address, $L(address) - 4, $L(address))
-  => i $L(potentialValidZip)=5,+potentialValidZip'=0 s isZipValid=1
-  => w isZipValid
-
-
 Exercise 2: String Replacement
   1. There's a problem in the ^XA global you created during preparation: Mozart wasn't a Baroque composer. To fix this, change every occurrence of the word MOZART in ^XA to the word BACH.
     a. Only one line of the global will fit in local memory at once.
     b. Your code should be flexible enough that it would not need to be changed if additional subscripts were added to the global.
     c. If another programmer wanted to replace a word other than MOZART, he or she should only have to make that change at one point in the code. The same is true for BACH.
 
-    => r "What word would you like to remove? ",wordToRemove
-    => w "What word would you like to insert in place of '" w wordToRemove r "'? ",wordToInsert
-    => s line=""
-    => f  s line=$O(^XA(line)) q:line=""  i $L(^XA(line),wordToRemove)>1 f ctr=2:1:$L(^XA(line),wordToRemove) SET $E(^XA(line),$F(^XA(line),wordToRemove)-$L(wordToRemove),$F(^XA(line),wordToRemove)-1)=wordToInsert
-
-
 Exercise 3: Character Counting
   1. In your ^XA global, count the number of occurrences of each character, i.e., how many times each letter, number, and punctuation character is used.
   2. Print out your results ("A: 8, B: 5 ...")
   3. You can assume control characters won't be entered.
 
-  =>
+Exercise 4: Reading Names
+  1. Prompt the user to enter a series of names (one at a time), ensuring that each is of the form: LASTNAME,FIRSTNAME<space>INITIAL(S)
+    a. Each name should exactly match the specified format. It isn't enough to check that it contains a comma and a space.
+    b. You shouldn't need to use any string functions ($E, $P, etc.) to validate the format.
+  2. Store the names in a global.
+  3. When the user enters a null response, go to a new page and print out all the names in alphabetical order.
+    a. Remember that M will automatically sort uppercase  before lowercase . Your solution should account for this behavior so that names are still printed in alphabetical order.
 
-
+Exercise 5: Name Search
+  1. Read in one name or portion of a name.
+  2. Using the name global you created in Exercise 4, print out all names that either match to that name or start with the same characters that the name starts with.
+    a. Don't start searching at the first name in the global; start as close as possible to the first matching name.
+    b. A name is not a match if it merely contains the search string--the name must match the search string from the beginning. For example, if the user searches "mi", your routine should return "MITCHELL,DAVID J" but not "SMITH,JOHN A".
+    c. More than one name might match the search string.
+  3. Stop searching as soon as you have found the last matching name.
+  4. The search should not iterate over every name in the array.
 
