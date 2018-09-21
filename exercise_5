@@ -1,0 +1,73 @@
+myRoutine() ;
+    w #
+    s nameIndex=""
+    f  s nameIndex=$O(^XLKNames(nameIndex)) q:nameIndex=""  w !,^XLKNames(nameIndex)
+    w !
+    ;
+    k
+    s matchedNames=""
+    ;
+    w ! r "Enter name (or portion of a name) to search: ",searchString
+    s searchString=$$up(searchString)
+    s searchStringFirstChar=$E(searchString,1)
+    s searchStringLength=$L(searchString)
+    ;
+    s arrayLength=0
+    d getArrayLength()
+    ;
+    s searchStringPotentiallyInArray=1
+    d isSearchStringInTheNameArray(searchStringFirstChar,arrayLength)
+    ;
+    s startingIndexIdentified=0
+    i searchStringPotentiallyInArray=0 d noMatches(searchString) w ! d  ;
+    e  d identifySearchIndexStart(searchStringFirstChar,0,arrayLength) d  ;
+    . ;
+    . d searchWithinLimits(searchString,searchStringLength)
+    . ;
+    . i matchedNames(0)="" d  ;
+    . . d noMatches(searchString)
+    . e  s matchedNamesIndex="" f  s matchedNamesIndex=$O(matchedNames(matchedNamesIndex)) q:matchedNamesIndex=""  w !,matchedNames(matchedNamesIndex)
+    . ;
+    . w !
+    ;
+    q
+noMatches(searchString) ;
+    w !,"Sorry, string """,searchString,""" has no matches!"
+    q
+searchWithinLimits(searchString,searchStringLength) ;
+    s noMoreMatches=0
+    s outputIndex=0
+    ;
+    s index=startIndex
+    f  s index=$O(^XLKNames(index)) q:noMoreMatches=1  d  ;
+    . i searchString=$E(^XLKNames(index),1,searchStringLength) d  ;
+    . . s matchedNames(outputIndex)=^XLKNames(index)
+    . . s outputIndex=outputIndex+1
+    . e  s noMoreMatches=1
+    ;
+    q
+setIndex(lowerIndex)  ;
+    s startingIndexIdentified=1
+    s startIndex=lowerIndex
+    q
+identifySearchIndexStart(searchStringFirstChar,lowerIndex,upperIndex) ;
+    s firstChar=searchStringFirstChar
+    s midPoint=(lowerIndex+upperIndex)\2
+    ;
+    i firstChar]^XLKNames(midPoint) s lowerIndex=midPoint
+    e  s upperIndex=midPoint
+    ;
+    i ((upperIndex-lowerIndex)'=0)&((upperIndex-lowerIndex)'=1) d identifySearchIndexStart(searchStringFirstChar,lowerIndex,upperIndex)
+    e  i startingIndexIdentified=0 d setIndex(lowerIndex)
+    ;
+    q
+isSearchStringInTheNameArray(searchStringFirstChar,arrayLength) ;
+    i searchStringFirstChar'=$E(^XLKNames(0),1),searchStringFirstChar']$E(^XLKNames(0),1) s searchStringPotentiallyInArray=0
+    i searchStringFirstChar'=$E(^XLKNames(arrayLength-1),1),searchStringFirstChar]$E(^XLKNames(arrayLength-1),1) s searchStringPotentiallyInArray=0
+    q
+getArrayLength() ;
+    s name=""
+    f  s name=$O(^XLKNames(name)) q:name=""  s arrayLength=arrayLength+1
+    q
+    ;
+    q  ;;#eor#
